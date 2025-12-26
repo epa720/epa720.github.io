@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corris Rivett VIN Decoder (1971-76)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Buy Me A Coffee -->
+    <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="epa720" data-description="Support me on Buy me a coffee!" data-color="#008000" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <!--<div class="logo-container">
+                    <img src="logo.png" alt="Corris Rivett Logo" class="logo-img">
+                </div>-->
+                <div class="title-container">
+                    <h1>Corris Rivett VIN Decoder (1971-76)</h1>
+                    <p class="instructions">Fill in the VIN sections below. Leave sections empty if unknown.</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Full VIN Paste Section -->
+            <section class="full-vin-section">
+                <label><i class="fas fa-paste"></i> Full VIN (29 characters)</label>
+                <div class="full-vin-input-container">
+                    <input type="text" id="fullVinInput" placeholder="UBBBDML465541NABAA-NJ-184-A-" class="full-vin-input" maxlength="29">
+                </div>
+            </section>
+
+            <!-- VIN Entry Section -->
+            <section class="vin-entry-section">
+                <h2><i class="fas fa-keyboard"></i> VIN Entry Fields</h2>
+                
+                <div class="sections-container">
+                    <!-- Top Row: Sections 00, 0, 1 -->
+                    <div class="section-row">
+                        <div class="vin-section" data-section="00">
+                            <label>Type</label>
+                            <div class="position-info">Fixed</div>
+                            <div class="read-only-field">BB</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="0">
+                            <label>Version</label>
+                            <div class="position-info">Fixed</div>
+                            <div class="read-only-field">D</div>
+                        </div>
+                        
+                        <div class="vin-section wide" data-section="1">
+                            <label>Vehicle No. (12 chars)</label>
+                            <div class="position-info">Positions 1-8</div>
+                            <input type="text" maxlength="12" placeholder="U?BB????????" class="vin-input" data-placeholder="U?BB????????">
+                            <div class="char-counter">0/12</div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Row: Sections 2-7 -->
+                    <div class="section-row">
+                        <div class="vin-section" data-section="2">
+                            <label>Drive</label>
+                            <div class="position-info">Position 9</div>
+                            <input type="text" maxlength="1" placeholder="1" class="vin-input" data-placeholder="1">
+                            <div class="char-counter">0/1</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="3">
+                            <label>Engine</label>
+                            <div class="position-info">Position 10</div>
+                            <input type="text" maxlength="2" placeholder="??" class="vin-input" data-placeholder="??">
+                            <div class="char-counter">0/2</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="4">
+                            <label>Trans</label>
+                            <div class="position-info">Position 11</div>
+                            <input type="text" maxlength="1" placeholder="?" class="vin-input" data-placeholder="?">
+                            <div class="char-counter">0/1</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="5">
+                            <label>Axle</label>
+                            <div class="position-info">Positions 12-13</div>
+                            <input type="text" maxlength="2" placeholder="??" class="vin-input" data-placeholder="??">
+                            <div class="char-counter">0/2</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="6">
+                            <label>Colour</label>
+                            <div class="position-info">Positions 14-15</div>
+                            <input type="text" maxlength="2" placeholder="??" class="vin-input" data-placeholder="??">
+                            <div class="char-counter">0/2</div>
+                        </div>
+                        
+                        <div class="vin-section" data-section="7">
+                            <label>Trim</label>
+                            <div class="position-info">Position 16</div>
+                            <input type="text" maxlength="1" placeholder="?" class="vin-input" data-placeholder="?">
+                            <div class="char-counter">0/1</div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Row: Section 8 -->
+                    <div class="section-row">
+                        <div class="vin-section full-width" data-section="8">
+                            <label>L.D.O (8 chars)</label>
+                            <div class="position-info">Positions 17-24</div>
+                            <input type="text" maxlength="8" placeholder="????????" class="vin-input" data-placeholder="????????">
+                            <div class="char-counter">0/8</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    <i class="fas fa-lightbulb"></i> Tip: <kbd>TAB</kbd> moves between fields, decoding is done in real-time
+                </div>
+            </section>
+
+            <!-- Buttons Section -->
+            <section class="buttons-section">
+                <button id="autoFillBtn" class="btn btn-secondary">
+                    <i class="fas fa-magic"></i> Auto-fill Example
+                </button>
+                <button id="clearBtn" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <h2><i class="fas fa-clipboard-list"></i> Decoded Results</h2>
+                <div class="results-container">
+                    <div class="full-vin-display" id="fullVinDisplay"></div>
+                    <div class="results-content">
+                        <div class="results-text" id="resultsText">
+                            <p class="placeholder">Results will appear here after decoding...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary Section -->
+            <section class="summary-section">
+                <div id="statusBar" class="status-bar">
+                    <i class="fas fa-info-circle"></i> Ready - Start typing to decode
+                </div>
+                <div class="position-count">
+                    <span id="filledPositions">0</span> of <span id="totalPositions">24</span> positions filled
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                <i class="fas fa-car"></i> VIN Decoder for 
+                <a href="https://www.amistech.com/mwc/" target="_blank" class="mwc-link">
+                    My Winter Car
+                </a> 
+                | Made by epa720
+            </p>
+        </footer>
+    </div>
+
+    <!-- Include the JavaScript -->
+    <script src="vin_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
